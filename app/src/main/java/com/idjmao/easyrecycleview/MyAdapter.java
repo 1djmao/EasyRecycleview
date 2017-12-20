@@ -2,6 +2,7 @@ package com.idjmao.easyrecycleview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +23,15 @@ public class MyAdapter extends EasyAdapter<String,MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=LayoutInflater.from(mContext).inflate(R.layout.item_text,parent,false);
-        return new MyViewHolder(view);
+    public MyViewHolder onCreatMyViewHolder(ViewGroup parent, int viewType) {
+        return new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_text,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         super.onBindViewHolder(holder,position);
-        ((MyViewHolder)holder).mTextView.setText(mList.get(position)+"FAJL");
+        Log.i("hhh", "onBindViewHolder: "+holder.getClass());
+        holder.mTextView.setText(mList.get(position)+"FAJL");
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -38,7 +39,10 @@ public class MyAdapter extends EasyAdapter<String,MyAdapter.MyViewHolder> {
         public MyViewHolder(View itemView) {
             super(itemView);
             mTextView=itemView.findViewById(R.id.mmtext);
+
         }
     }
+
+
 
 }

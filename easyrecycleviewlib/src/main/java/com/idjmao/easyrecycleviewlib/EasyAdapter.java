@@ -3,18 +3,25 @@ package com.idjmao.easyrecycleviewlib;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.List;
 
 /**
  * Created by 1djmao on 2017/12/18.
+ *
+ * 注意： viewtype 1000,1001,1002 都已经被占用，如果需要自定义请避开这三个数
+ *
  */
 
-public abstract class EasyAdapter<D,VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter {
-    final int VIEW_TYPE_EMPTY=0;
-    final int VIEW_TYPE_HEADER=1;
-    final int VIEW_TYPE_NOEMAL=2;
-    final int VIEW_TYPE_BOTTOM=3;
+public abstract class EasyAdapter<D, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter <VH>{
+    public final int VIEW_TYPE_EMPTY=1000;
+    public final int VIEW_TYPE_HEADER=1001;
+    public final int VIEW_TYPE_BOTTOM=1002;
+
+    RecyclerView.ViewHolder mEmptyViewholder;
+    RecyclerView.ViewHolder mHeaderViewHolder;
+    RecyclerView.ViewHolder mBottomViewHolder;
 
 
     protected Context mContext;
@@ -27,16 +34,57 @@ public abstract class EasyAdapter<D,VH extends RecyclerView.ViewHolder> extends 
 
 
     public int getItemCount() {
-        return mList.size();
+        if (mList.size()==0&&mEmptyViewholder!=null){
+            return 1;
+        }
+        int n=mList.size();
+        if (mHeaderViewHolder!=null){
+            n++;
+        }
+        if (mBottomViewHolder!=null){
+            n++;
+        }
+        return n;
     }
 
-//    @Override
-//    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        return new VH(null);
-//    }
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public int getItemViewType(int position) {
+        if (mList.size()==0&&mEmptyViewholder!=null){
+            return VIEW_TYPE_EMPTY;
+        }
 
+        if (mHeaderViewHolder!=null&&position==0){
+            return VIEW_TYPE_HEADER;
+        }
+
+        if (mBottomViewHolder!=null&&position==getItemCount()-1){
+            return VIEW_TYPE_BOTTOM;
+        }
+        return super.getItemViewType(position);
+    }
+
+    @Override
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType){
+            case VIEW_TYPE_EMPTY:
+
+                return null;
+            case VIEW_TYPE_HEADER:
+
+                return null;
+            case VIEW_TYPE_BOTTOM:
+
+                return null;
+            default:
+
+                return onCreatMyViewHolder(parent,viewType);
+        }
+    }
+
+    public abstract VH onCreatMyViewHolder(ViewGroup parent, int viewType);
+
+    @Override
+    public void onBindViewHolder(VH holder, final int position) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,11 +142,6 @@ public abstract class EasyAdapter<D,VH extends RecyclerView.ViewHolder> extends 
         notifyDataSetChanged();
     }
 
-//    public class EasyViewHolder extends RecyclerView.ViewHolder{
-//        public EasyViewHolder(View itemView) {
-//            super(itemView);
-//        }
-//    }
 
 
 }
