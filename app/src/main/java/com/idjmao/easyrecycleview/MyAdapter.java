@@ -2,7 +2,6 @@ package com.idjmao.easyrecycleview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +22,12 @@ public class MyAdapter extends EasyAdapter<String,MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public MyViewHolder onCreatMyViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateEasyViewHolder(ViewGroup parent, int viewType) {
         return new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_text,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        super.onBindViewHolder(holder,position);
-        Log.i("hhh", "onBindViewHolder: "+holder.getClass());
+    public void onBindEasyViewHolder(MyViewHolder holder, int position) {
         holder.mTextView.setText(mList.get(position)+"FAJL");
     }
 
@@ -42,7 +39,4 @@ public class MyAdapter extends EasyAdapter<String,MyAdapter.MyViewHolder> {
 
         }
     }
-
-
-
 }
