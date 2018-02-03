@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.idjmao.easyrecycleviewlib.viewholder.BaseViewHolder;
+
 import java.util.List;
 
 /**
@@ -14,15 +16,15 @@ import java.util.List;
  *
  */
 
-public abstract class EasyAdapter<D, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter <RecyclerView.ViewHolder>{
+public abstract class EasyAdapter<D> extends RecyclerView.Adapter <BaseViewHolder>{
     //三个 viewtype
     public final int VIEW_TYPE_EMPTY=1000;       //数据为空时
     public final int VIEW_TYPE_HEADER=1001;      //头部
-    public final int VIEW_TYPE_BOTTOM=1002;      //底部
+    public final int VIEW_TYPE_FOOTER=1002;      //底部
     //三个 viewtype 对应的 viewholder
-    RecyclerView.ViewHolder mEmptyViewholder;
-    RecyclerView.ViewHolder mHeaderViewHolder;
-    RecyclerView.ViewHolder mBottomViewHolder;
+    BaseViewHolder mEmptyViewholder;
+    BaseViewHolder mHeaderViewHolder;
+    BaseViewHolder mFooterViewHolder;
 
     protected Context mContext;
     protected List<D> mList;
@@ -41,7 +43,7 @@ public abstract class EasyAdapter<D, VH extends RecyclerView.ViewHolder> extends
         if (mHeaderViewHolder!=null){
             n++;
         }
-        if (mBottomViewHolder!=null){
+        if (mFooterViewHolder !=null){
             n++;
         }
         return n;
@@ -69,14 +71,14 @@ public abstract class EasyAdapter<D, VH extends RecyclerView.ViewHolder> extends
             return VIEW_TYPE_HEADER;
         }
 
-        if (mBottomViewHolder!=null&&position==getItemCount()-1){
-            return VIEW_TYPE_BOTTOM;
+        if (mFooterViewHolder !=null&&position==getItemCount()-1){
+            return VIEW_TYPE_FOOTER;
         }
         return super.getItemViewType(position);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType){
             case VIEW_TYPE_EMPTY:
 
@@ -84,19 +86,19 @@ public abstract class EasyAdapter<D, VH extends RecyclerView.ViewHolder> extends
             case VIEW_TYPE_HEADER:
 
                 return mHeaderViewHolder;
-            case VIEW_TYPE_BOTTOM:
+            case VIEW_TYPE_FOOTER:
 
-                return mBottomViewHolder;
+                return mFooterViewHolder;
             default:
 
                 return onCreateEasyViewHolder(parent,viewType);
         }
     }
 
-    public abstract VH onCreateEasyViewHolder(ViewGroup parent, int viewType);
+    public abstract BaseViewHolder onCreateEasyViewHolder(ViewGroup parent, int viewType);
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(BaseViewHolder holder, final int position) {
 
         if (mEmptyViewholder!=null&&getDataCout()==0){
             return;
@@ -104,7 +106,7 @@ public abstract class EasyAdapter<D, VH extends RecyclerView.ViewHolder> extends
         if (mHeaderViewHolder!=null&&position==0){
             return;
         }
-        if (mBottomViewHolder!=null&&position==getItemCount()-1){
+        if (mFooterViewHolder !=null&&position==getItemCount()-1){
             return;
         }
 
@@ -134,11 +136,11 @@ public abstract class EasyAdapter<D, VH extends RecyclerView.ViewHolder> extends
             }
         });
 
-        onBindEasyViewHolder((VH) holder,datePos);
+        onBindEasyViewHolder( holder,datePos);
 
     }
 
-    public abstract void onBindEasyViewHolder(VH holder, int dataPos);
+    public abstract void onBindEasyViewHolder(BaseViewHolder holder, int dataPos);
 
 
     /**
@@ -186,8 +188,8 @@ public abstract class EasyAdapter<D, VH extends RecyclerView.ViewHolder> extends
         mList.remove(pos);
         notifyDataSetChanged();
     }
-    public void removeData(D date){
-        mList.remove(date);
+    public void clear(){
+        mList.clear();
         notifyDataSetChanged();
     }
 
@@ -195,16 +197,16 @@ public abstract class EasyAdapter<D, VH extends RecyclerView.ViewHolder> extends
      * 设置三个 ViewHolder
      * @param emptyViewholder
      */
-    public void setEmptyViewholder(RecyclerView.ViewHolder emptyViewholder) {
+    public void setEmptyViewholder(BaseViewHolder emptyViewholder) {
         mEmptyViewholder = emptyViewholder;
     }
 
-    public void setHeaderViewHolder(RecyclerView.ViewHolder headerViewHolder) {
+    public void setHeaderViewHolder(BaseViewHolder headerViewHolder) {
         mHeaderViewHolder = headerViewHolder;
     }
 
-    public void setBottomViewHolder(RecyclerView.ViewHolder bottomViewHolder) {
-        mBottomViewHolder = bottomViewHolder;
+    public void setFooterViewHolder(BaseViewHolder footerViewHolder) {
+        mFooterViewHolder = footerViewHolder;
     }
 
     /**
@@ -223,11 +225,11 @@ public abstract class EasyAdapter<D, VH extends RecyclerView.ViewHolder> extends
         }
         mHeaderViewHolder.itemView.setOnClickListener(clickListener);
     }
-    public void setBottomViewClickListener(View.OnClickListener clickListener){
-        if (mBottomViewHolder==null){
+    public void setFooterViewClickListener(View.OnClickListener clickListener){
+        if (mFooterViewHolder ==null){
             return;
         }
-        mBottomViewHolder.itemView.setOnClickListener(clickListener);
+        mFooterViewHolder.itemView.setOnClickListener(clickListener);
     }
 
 
