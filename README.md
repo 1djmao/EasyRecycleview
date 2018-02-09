@@ -75,14 +75,10 @@ new ImgViewHolder(recyclerView,R.drawable.ic_launcher_foreground)
 ```
 
 #### 5. 设置 EmptyViewHolder，HeaderViewHolder 和 BottomViewHolder 和监听
-<<<<<<< HEAD
+
 **注意：**
 1. 以下方法必须在 setLayoutManager 方法后调用
 2. 如果使用要 GridLayoutManger 请使用 HeaderGridLayoutManager
-=======
-**注意** ++以下方法必须在 setLayoutManager 方法后调用++。
-
->>>>>>> 1964df66ef963025af3163f0bfbd0c5cc9924673
 
 ```
     adapter.setEmptyViewholder
