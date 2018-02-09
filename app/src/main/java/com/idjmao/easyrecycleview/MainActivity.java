@@ -1,14 +1,13 @@
 package com.idjmao.easyrecycleview;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
 import com.idjmao.easyrecycleviewlib.EasyAdapter;
-import com.idjmao.easyrecycleviewlib.viewholder.ImgViewHolder;
+import com.idjmao.easyrecycleviewlib.HeaderGridLayoutManager;
 import com.idjmao.easyrecycleviewlib.viewholder.TextViewHolder;
 
 import java.util.ArrayList;
@@ -21,14 +20,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView=findViewById(R.id.mmlist);
-        List<String> list=new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        final List<String> list=new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
             list.add("第"+i);
         }
         final MyAdapter adapter=new MyAdapter(this,list);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
+        recyclerView.setLayoutManager(new HeaderGridLayoutManager(this,4));
 
         adapter.setEmptyViewholder(new TextViewHolder(recyclerView,"数据为空"));
         adapter.setEmptyViewClickListener(new View.OnClickListener() {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("hhhhh", "onClick: header");
             }
         });
-        adapter.setFooterViewHolder(new ImgViewHolder(recyclerView,R.drawable.ic_launcher_foreground));
+        adapter.setFooterViewHolder(new TextViewHolder(recyclerView,"this is footer"));
         adapter.setFooterViewClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
