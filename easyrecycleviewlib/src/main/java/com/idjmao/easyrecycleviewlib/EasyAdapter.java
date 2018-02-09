@@ -32,6 +32,7 @@ public abstract class EasyAdapter<D> extends RecyclerView.Adapter <BaseViewHolde
     public EasyAdapter(Context context, List<D> list) {
         mContext = context;
         mList = list;
+
     }
 
 
@@ -231,6 +232,8 @@ public abstract class EasyAdapter<D> extends RecyclerView.Adapter <BaseViewHolde
         }
         mFooterViewHolder.itemView.setOnClickListener(clickListener);
     }
+
+
 
 
 

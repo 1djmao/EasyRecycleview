@@ -9,18 +9,22 @@ import android.util.AttributeSet;
  */
 
 public class HeaderGridLayoutManager extends GridLayoutManager {
-    public HeaderGridLayoutManager(Context context, int spanCount) {
+    EasyAdapter mAdapter;
+    public HeaderGridLayoutManager(Context context,EasyAdapter adapter, int spanCount) {
         super(context, spanCount);
+        mAdapter=adapter;
         init();
     }
 
-    public HeaderGridLayoutManager(Context context, int spanCount, int orientation, boolean reverseLayout) {
+    public HeaderGridLayoutManager(Context context,EasyAdapter adapter, int spanCount, int orientation, boolean reverseLayout) {
         super(context, spanCount, orientation, reverseLayout);
+        mAdapter=adapter;
         init();
     }
 
-    public HeaderGridLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public HeaderGridLayoutManager(Context context,EasyAdapter adapter, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        mAdapter=adapter;
         init();
     }
 
@@ -29,10 +33,10 @@ public class HeaderGridLayoutManager extends GridLayoutManager {
         setSpanSizeLookup(new SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position==0){
+                if (mAdapter.mHeaderViewHolder!=null&&position==0){
                     return getSpanCount();
                 }
-                if (position==getItemCount()-1){
+                if (mAdapter.mFooterViewHolder!=null&&position==getItemCount()-1){
                     return getSpanCount();
                 }
                 return 1;
