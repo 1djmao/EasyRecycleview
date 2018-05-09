@@ -12,11 +12,9 @@ import com.idjmao.easyrecycleviewlib.viewholder.BaseViewHolder;
 public class TTViewHolder extends BaseViewHolder {
 
     TextView mTextView1;
-    TextView mTextView2;
 
     public TTViewHolder(ViewGroup view) {
-        super(view, R.layout.item_tt);
-        mTextView1=itemView.findViewById(R.id.tt1);
-        mTextView2=itemView.findViewById(R.id.tt2);
+        super(view, R.layout.item_text);
+        mTextView1=itemView.findViewById(R.id.mmtext);
     }
 }

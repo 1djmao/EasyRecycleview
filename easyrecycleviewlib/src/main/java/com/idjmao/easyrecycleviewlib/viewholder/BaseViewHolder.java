@@ -8,7 +8,8 @@ import android.view.ViewGroup;
  * Created by 1djmao on 2018/2/3.
  */
 
-public class BaseViewHolder extends RecyclerView.ViewHolder {
+public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+
 
     public BaseViewHolder(ViewGroup view, int layout) {
         super(LayoutInflater.from(view.getContext()).inflate(layout,view,false));

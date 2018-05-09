@@ -2,6 +2,7 @@ package com.idjmao.easyrecycleview;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new EasyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(MainActivity.this, position+" is clickeed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, position+" is clicked", Toast.LENGTH_SHORT).show();
             }
         });
         adapter.setOnItemLongCilckListener(new EasyAdapter.OnItemLongCilckListener() {
@@ -113,5 +114,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL));
     }
 }

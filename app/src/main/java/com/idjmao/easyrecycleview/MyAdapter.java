@@ -26,8 +26,7 @@ public class MyAdapter extends EasyAdapter<String> {
     @Override
     public void onBindEasyViewHolder(BaseViewHolder holder, int position) {
         TTViewHolder ttViewHolder= (TTViewHolder) holder;
-        ttViewHolder.mTextView1.setText(mList.get(position)+"item text1");
-        ttViewHolder.mTextView2.setText(mList.get(position)+"item text2");
+        ttViewHolder.mTextView1.setText(mList.get(position)+"item");
     }
 
 
