@@ -11,6 +11,21 @@
 # 使用
 
 #### 1. 导入
+工程的 build.gradle 中加入
+```
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+module 的 build.gradle 中
+```
+dependencies {
+	        implementation 'com.github.1djmao:EasyRecycleview:1.0'
+}
+```
 
 #### 2. EasyAdapter 定义
 
